@@ -1,6 +1,7 @@
 import express, { Request, Response } from 'express';
 import { PostReciptsProcess } from './postReciptsProcess';
 import { ProcessedReceipt } from './types';
+import { validateReceipt } from './middlewares/validateReceipt';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -22,10 +23,12 @@ app.get('/receipts/:id/points', async (req: Request, res: Response) => {
     }
 });
 
+app.use('/receipts/process', validateReceipt)
+
 app.post('/receipts/process', async (req: Request, res: Response) => {
     const processedReceipt = await PostReciptsProcess(req, res);
     memoryDB.set(processedReceipt.id, processedReceipt);
-    res.status(201);
+    res.status(200);
     res.send({id: processedReceipt.id});
 });
 
