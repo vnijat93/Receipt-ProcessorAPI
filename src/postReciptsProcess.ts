@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
 import { v4 as uuidv4 } from 'uuid';
-import { Receipt, Item } from './types';
+import { Receipt, Item, ProcessedReceipt } from './types';
 
-export async function PostReciptsProcess(req: Request, res: Response) {
+export async function PostReciptsProcess(req: Request, res: Response): Promise<ProcessedReceipt> {
     const receipt: Receipt = req.body;
     const points = await calculatePoints(receipt);
     const id = uuidv4();
