@@ -1,4 +1,5 @@
 import express, { Request, Response } from 'express';
+import { PostReciptsProcess } from './postReciptsProcess';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -7,8 +8,13 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 
 // Basic route
-app.get('/', (req: Request, res: Response) => {
+app.get('/', async (req: Request, res: Response) => {
   res.send({response: 'Welcome to the TypeScript Express API!'});
+});
+
+app.post('/receipts/process', async (req: Request, res: Response) => {
+    const receiptId = await PostReciptsProcess(req, res);
+    res.send(receiptId);
 });
 
 app.listen(PORT, () => {
