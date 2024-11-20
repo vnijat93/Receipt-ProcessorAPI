@@ -63,8 +63,7 @@ export async function descriptionLengthPoints(items: Item[]): Promise<number> {
 
 export async function oddDayPoints(purchaseDate: string): Promise<number> {
     let points = 0;
-    const date = new Date(purchaseDate);
-    const day = date.getDate();
+    const day = parseInt(purchaseDate.split('-').pop() || '0', 10);;
     if (day % 2 !== 0) {
         points += 6;
     }
