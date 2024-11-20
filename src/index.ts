@@ -13,8 +13,8 @@ app.get('/', async (req: Request, res: Response) => {
 });
 
 app.post('/receipts/process', async (req: Request, res: Response) => {
-    const receiptId = await PostReciptsProcess(req, res);
-    res.send(receiptId);
+    const processedReceipt = await PostReciptsProcess(req, res);
+    res.send({id: processedReceipt.id});
 });
 
 app.listen(PORT, () => {
